@@ -1,0 +1,17 @@
+{
+  "name": "eric-vue",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxtjs/robots": "^5.5.6",
+    "@nuxtjs/sitemap": "^7.4.7",
+    "contentful": "^11.7.5",
+    "nuxt": "^4.1.3"
+  }
+}
