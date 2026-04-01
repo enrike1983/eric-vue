@@ -15,7 +15,7 @@ useSeoMeta({
 
 <template>
   <section>
-    <h1>{{ data?.title || "Home" }}</h1>
+    <h1>{{ data?.title || "Home" }}</h1>ciao!
     <p v-if="data?.body">{{ data.body }}</p>
     <p v-else>Nessun contenuto trovato su Contentful per la home.</p>
     <p v-if="error">Errore nel caricamento del contenuto.</p>
