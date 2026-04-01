@@ -49,6 +49,7 @@ export default defineEventHandler(async (event) => {
     environment: config.contentfulEnvironment
   });
 
+  
   const response = await client.getEntries({
     content_type: config.contentfulContentType,
     "fields.slug": slug,
