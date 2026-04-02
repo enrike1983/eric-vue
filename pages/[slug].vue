@@ -2,11 +2,14 @@
 import type { PagePayload } from "~/server/api/page/[slug].get";
 import BricksRenderer from "~/components/BricksRenderer.vue";
 
-const { data, error } = await useFetch<PagePayload>("/api/page/sottopagina");
+const route = useRoute();
+const slug = route.params.slug || "home";
+
+const { data, error } = await useFetch<PagePayload>(`/api/page/${slug}`);
 
 useSeoMeta({
-  title: data.value?.title || "Home",
-  description: `${data.value?.title || "Home"} - Sito Vue con Nuxt e Contentful`,
+  title: data.value?.title || "Pagina",
+  description: `${data.value?.title || "Pagina"} - Sito Vue con Nuxt e Contentful`,
 });
 </script>
 
