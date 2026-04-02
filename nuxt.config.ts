@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
+  css: ["bootstrap/dist/css/bootstrap.min.css"],
   modules: ["@nuxtjs/sitemap", "@nuxtjs/robots"],
   runtimeConfig: {
     contentfulSpaceId: process.env.CONTENTFUL_SPACE_ID,
@@ -8,7 +9,7 @@ export default defineNuxtConfig({
     contentfulEnvironment: process.env.CONTENTFUL_ENVIRONMENT || "master",
     contentfulContentType: process.env.CONTENTFUL_CONTENT_TYPE || "pageContent",
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000"
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "https://example.com"
     }
   },
   app: {
