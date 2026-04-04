@@ -23,6 +23,17 @@ export type ImageLeftTextRightBrick = {
   image?: string;
   ctaLabel?: string;
   ctaUrl?: string;
+  variant?: string;
+};
+
+export type TextLeftImageRightBrick = {
+  type: "textLeftImageRight";
+  title: string;
+  description?: string;
+  image?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
+  variant?: string;
 };
 
 export type VideoBrick = {
@@ -30,7 +41,7 @@ export type VideoBrick = {
   url?: string;
 };
 
-export type Brick = HeroBrick | TextBrick | ImageLeftTextRightBrick | VideoBrick;
+export type Brick = HeroBrick | TextBrick | ImageLeftTextRightBrick | TextLeftImageRightBrick | VideoBrick;
 
 export type PagePayload = {
   slug: string;
@@ -77,8 +88,21 @@ function parseBricks(rawBricks: any[]): Brick[] {
           image: f.image?.fields?.file?.url ? `https:${f.image.fields.file.url}` : undefined,
           ctaLabel: typeof f.ctaLabel === "string" ? f.ctaLabel : undefined,
           ctaUrl: typeof f.ctaUrl === "string" ? f.ctaUrl : undefined,
+          variant: typeof f.variant === "string" ? f.variant : "default",
         };
       }
+
+        if (contentType === "textLeftImageRight") {
+        return {
+          type: "textLeftImageRight",
+          title: typeof f.title === "string" ? f.title : "",
+          description: typeof f.description === "string" ? f.description : "",
+          image: f.image?.fields?.file?.url ? `https:${f.image.fields.file.url}` : undefined,
+          ctaLabel: typeof f.ctaLabel === "string" ? f.ctaLabel : undefined,
+          ctaUrl: typeof f.ctaUrl === "string" ? f.ctaUrl : undefined,
+          variant: typeof f.variant === "string" ? f.variant : "default",
+        };
+      } 
 
       if (contentType === "video") {
         return {

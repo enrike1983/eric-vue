@@ -7,6 +7,15 @@ body {
     font-weight: 400;
 }
 
+.small-text {
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    h2 {
+        font-size: 60px;
+    }
+}
+
 h2 {
     font-size: 60px;
 }
@@ -88,4 +97,13 @@ h2 {
   body {
     font-size: 25px;
   }
+
+  .small-text {
+    font-size: 21px;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    h2 {
+        font-size: 40px;
+    }
+}
 }
