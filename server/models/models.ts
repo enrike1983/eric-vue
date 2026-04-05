@@ -1,3 +1,18 @@
+export type GigItem = {
+    venue: string;
+    location?: string;
+    date: string;
+    ctaLabel?: string;
+    ctaUrl?: string;
+    slug: string;
+};
+
+export type GigsBrick = {
+  type: "gigs";
+  title: string;
+  items: GigItem[];
+};
+
 export type HeroBrick = {
   type: "hero";
   title: string;
@@ -44,12 +59,23 @@ export type ImageBrick = {
   image?: string;
 };
 
-export type Brick = HeroBrick | TextBrick | ImageLeftTextRightBrick | TextLeftImageRightBrick | VideoBrick | ImageBrick;
+export type Brick = HeroBrick | TextBrick | ImageLeftTextRightBrick | TextLeftImageRightBrick | VideoBrick | ImageBrick | GigsBrick;
 
 export type PagePayload = {
   slug: string;
   title: string;
   bricks: Brick[];
+  metaTitle?: string;
+  metaDescription?: string;
+};
+
+export type GigPayload = {
+  slug: string;
+  venue?: string;
+  location?: string;
+  date?: string;
+  ctaLabel?: string;
+  ctaUrl?: string;
   metaTitle?: string;
   metaDescription?: string;
 };

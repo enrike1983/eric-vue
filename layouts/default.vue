@@ -2,7 +2,6 @@
 import type { LayoutThings } from "~/server/models/models.ts";
 
 const { data, error } = await useFetch<LayoutThings>(`/api/layout/get`);
-console.log("Layout data:", data.value);
 </script>
 
 <template>

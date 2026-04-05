@@ -1,12 +1,5 @@
 import { createClient } from "contentful";
-
-export type GigItem = {
-    venue: string;
-    location?: string;
-    date: string;
-    ctaLabel?: string;
-    ctaUrl?: string;
-};
+import type { GigItem } from "~/server/models/models.ts";
 
 export async function fetchGigItems(
   client: ReturnType<typeof createClient>,
@@ -29,6 +22,7 @@ export async function fetchGigItems(
         date: typeof fields.date === "string" ? new Date(fields.date).toDateString() : new Date().toDateString(),
         ctaLabel: typeof fields.ctaLabel === "string" ? fields.ctaLabel : undefined,
         ctaUrl: typeof fields.ctaUrl === "string" ? fields.ctaUrl : undefined,
+        slug: fields.slug as string,
       };
     })
     .filter((gig) => gig.location)

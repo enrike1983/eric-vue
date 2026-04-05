@@ -1,12 +1,6 @@
 import { createClient } from "contentful";
-import type { PagePayload, Brick } from "~/server/models/models.ts";
-import { fetchGigItems, type GigItem } from "~/server/services/contentful/gigs";
-
-export type Gigs = {
-  type: "gigs";
-  title: string;
-  items: GigItem[];
-};
+import type { PagePayload, GigItem, Brick } from "~/server/models/models.ts";
+import { fetchGigItems } from "~/server/services/contentful/gigs";
 
 export default defineEventHandler(async (event): Promise<PagePayload> => {
   const slug = getRouterParam(event, "slug");
@@ -31,6 +25,11 @@ export default defineEventHandler(async (event): Promise<PagePayload> => {
   });
 
   const entry = response.items[0];
+  
+  if (!entry) {
+    throw createError({ statusCode: 404, statusMessage: "Contenuto non trovato" });
+  }
+
   const fields = entry?.fields as Record<string, unknown> | undefined;
   const bricks = parseBricks(Array.isArray(fields?.bricks) ? fields.bricks : []);
   const hasGigsBrick = bricks.some((brick) => brick.type === "gigs");

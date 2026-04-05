@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import type { PagePayload } from "~/server/models/models.ts";
-import BricksRenderer from "~/components/BricksRenderer.vue";
+import type { GigPayload } from "~/server/models/models.ts";
 
 const route = useRoute();
 const slug = route.params.slug || "home";
 
-const { data, error } = await useFetch<PagePayload>(`/api/page/${slug}`);
+const { data, error } = await useFetch<GigPayload>(`/api/gigs/${slug}`);
 
 if (error.value?.statusCode === 404) {
   throw createError({ statusCode: 404, statusMessage: "Pagina non trovata", fatal: true });
@@ -18,6 +17,5 @@ useSeoMeta({
 </script>
 
 <template>
-  <BricksRenderer v-if="data?.bricks?.length" :bricks="data.bricks" />
-  <p v-if="error" class="text-danger p-4">Errore nel caricamento del contenuto.</p>
+  "single template for gig"
 </template>

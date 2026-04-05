@@ -31,7 +31,7 @@ h2 {
 }
 
 .navbar {
-    height: 140px;
+    min-height: 140px;
 }
 
 .homepage-hero {

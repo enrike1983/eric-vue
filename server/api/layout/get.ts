@@ -10,7 +10,7 @@ export default defineEventHandler(async (event): Promise<LayoutThings> => {
     environment: config.contentfulEnvironment,
   });
 
-// prende un solo entry di tipo "configuration", assumendo che ce ne sia solo uno
+  // prende un solo entry di tipo "configuration", assumendo che ce ne sia solo uno
   const configResponse = await client.getEntries({
     content_type: 'configuration',
     include: 2,
