@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PagePayload } from "~/server/api/page/[slug].get";
+import type { PagePayload } from "~/server/models/models.ts";
 import BricksRenderer from "~/components/BricksRenderer.vue";
 
 const route = useRoute();

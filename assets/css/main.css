@@ -7,6 +7,10 @@ body {
     font-weight: 400;
 }
 
+.text-body-secondary {
+    font-size: 14px;
+}
+
 .small-text {
     font-size: inherit;
     line-height: inherit;
@@ -102,8 +106,8 @@ h2 {
     font-size: 21px;
     line-height: 1.6;
     letter-spacing: 0.02em;
-    h2 {
-        font-size: 40px;
+        h2 {
+            font-size: 40px;
+        }
     }
-}
 }

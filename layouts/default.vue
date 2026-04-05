@@ -62,7 +62,9 @@ console.log("Layout data:", data.value);
           </template>
       </div>
       <p v-if="error" class="text-danger mb-0">Errore nel caricamento della configurazione.</p>
-      <p v-else-if="data" class="text-center text-body-secondary">© 2026 {{ data.configuration.siteName }}</p>
+      <p v-else-if="data" class="text-center text-body-secondary">
+        © 2026 {{ data.configuration.siteName }}
+      </p>
     </footer>
   </div>
 </template>

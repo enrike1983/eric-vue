@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Brick } from "~/server/api/page/[slug].get";
+import type { Brick } from "~/server/models/models.ts";
 import HeroBrick from "~/components/bricks/HeroBrick.vue";
 import TextBrick from "./bricks/TextBrick.vue";
 import ImageLeftTextRightBrick from "./bricks/ImageLeftTextRightBrick.vue";
