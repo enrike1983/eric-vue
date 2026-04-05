@@ -8,8 +8,8 @@ const slug = route.params.slug || "home";
 const { data, error } = await useFetch<PagePayload>(`/api/page/${slug}`);
 
 useSeoMeta({
-  title: data.value?.title || "Pagina",
-  description: `${data.value?.title || "Pagina"} - Sito Vue con Nuxt e Contentful`,
+  title: data.value?.metaTitle || "Page",
+  description: data.value?.metaDescription || "Page",
 });
 </script>
 

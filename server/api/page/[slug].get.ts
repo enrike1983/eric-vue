@@ -59,6 +59,8 @@ export type PagePayload = {
   slug: string;
   title: string;
   bricks: Brick[];
+  metaTitle?: string;
+  metaDescription?: string;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -192,5 +194,7 @@ export default defineEventHandler(async (event): Promise<PagePayload> => {
       (typeof fields?.title === "string" && fields.title) ||
       (slug === "sottopagina" ? "Sottopagina" : "Home"),
     bricks: hydratedBricks,
+    metaTitle: typeof fields?.metaTitle === "string" ? fields.metaTitle : undefined,
+    metaDescription: typeof fields?.metaDescription === "string" ? fields.metaDescription : undefined,
   };
 });

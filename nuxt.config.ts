@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      titleTemplate: "%s | Vue + Contentful",
+      titleTemplate: "%s",
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         {

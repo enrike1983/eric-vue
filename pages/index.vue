@@ -5,8 +5,8 @@ import BricksRenderer from "~/components/BricksRenderer.vue";
 const { data, error } = await useFetch<PagePayload>("/api/page/home");
 
 useSeoMeta({
-  title: data.value?.title || "Home",
-  description: `${data.value?.title || "Home"} - Sito Vue con Nuxt e Contentful`,
+  title: data.value?.metaTitle || "Home",
+  description: data.value?.metaDescription || "Home",
 });
 </script>
 
