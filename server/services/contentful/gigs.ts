@@ -8,17 +8,6 @@ export type GigItem = {
     ctaUrl?: string;
 };
 
-function extractPhotoUrl(photoField: unknown): string | undefined {
-  if (!photoField || typeof photoField !== "object" || !("fields" in photoField)) {
-    return undefined;
-  }
-
-  const asset = photoField as { fields?: { file?: { url?: string } } };
-  const url = asset.fields?.file?.url;
-
-  return typeof url === "string" ? `https:${url}` : undefined;
-}
-
 export async function fetchGigItems(
   client: ReturnType<typeof createClient>,
 ): Promise<GigItem[]> {

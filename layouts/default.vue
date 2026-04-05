@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { NavigationPayload } from "~/server/models/models.ts";
+import type { LayoutThings } from "~/server/models/models.ts";
 
-const { data, error } = await useFetch<NavigationPayload>(`/api/navigation/get`);
+const { data, error } = await useFetch<LayoutThings>(`/api/layout/get`);
+console.log("Layout data:", data.value);
 </script>
 
 <template>
@@ -28,7 +29,7 @@ const { data, error } = await useFetch<NavigationPayload>(`/api/navigation/get`)
               <p v-if="error" class="text-danger mb-0">Errore nel caricamento della navigazione.</p>
               <template v-else-if="data">
                 <NuxtLink
-                  v-for="(item, index) in data.menuItems"
+                  v-for="(item, index) in data.navigation.menuItems"
                   :key="index"
                   class="nav-link"
                   :to="item.fields.slug === 'home' ? '/' : `/${item.fields.slug}`"
@@ -45,5 +46,23 @@ const { data, error } = await useFetch<NavigationPayload>(`/api/navigation/get`)
     <main id="main" class="main">
       <slot />
     </main>
+
+    <footer class="py-3 my-4"> 
+      <div class="nav justify-content-center border-bottom pb-3 mb-3"> 
+          <p v-if="error" class="text-danger mb-0">Errore nel caricamento della navigazione.</p>
+          <template v-else-if="data">
+            <NuxtLink
+              v-for="(item, index) in data.navigation.menuItems"
+              :key="index"
+              class="nav-link"
+              :to="item.fields.slug === 'home' ? '/' : `/${item.fields.slug}`"
+            >
+              {{ item.fields.title }}
+            </NuxtLink>
+          </template>
+      </div>
+      <p v-if="error" class="text-danger mb-0">Errore nel caricamento della configurazione.</p>
+      <p v-else-if="data" class="text-center text-body-secondary">© 2026 {{ data.configuration.siteName }}</p>
+    </footer>
   </div>
 </template>

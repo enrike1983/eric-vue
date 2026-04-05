@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { VideoBrick } from "~/server/api/page/[slug].get";
+import type { VideoBrick } from "~/server/models/models";
 
 defineProps<{ brick: VideoBrick }>();
 </script>

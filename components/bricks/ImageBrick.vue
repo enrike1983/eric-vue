@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ImageBrick } from "~/server/api/page/[slug].get";
+import type { ImageBrick } from "~/server/models/models";
 
 defineProps<{ brick: ImageBrick }>();
 </script>

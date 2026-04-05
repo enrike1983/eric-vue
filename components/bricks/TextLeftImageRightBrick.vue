@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TextLeftImageRightBrick } from "~/server/api/page/[slug].get";
+import type { TextLeftImageRightBrick } from "~/server/models/models";
 
 defineProps<{ brick: TextLeftImageRightBrick }>();
 </script>

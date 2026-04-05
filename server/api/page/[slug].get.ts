@@ -1,41 +1,6 @@
 import { createClient } from "contentful";
+import type { PagePayload, Brick } from "~/server/models/models.ts";
 import { fetchGigItems, type GigItem } from "~/server/services/contentful/gigs";
-
-export type HeroBrick = {
-  type: "hero";
-  title: string;
-  subtitle?: string;
-  background?: string;
-  ctaLabel?: string;
-  ctaUrl?: string;
-};
-
-export type TextBrick = {
-  type: "text";
-  title: string;
-  description?: string;
-  palette?: string;
-};
-
-export type ImageLeftTextRightBrick = {
-  type: "imageLeftTextRight";
-  title: string;
-  description?: string;
-  image?: string;
-  ctaLabel?: string;
-  ctaUrl?: string;
-  variant?: string;
-};
-
-export type TextLeftImageRightBrick = {
-  type: "textLeftImageRight";
-  title: string;
-  description?: string;
-  image?: string;
-  ctaLabel?: string;
-  ctaUrl?: string;
-  variant?: string;
-};
 
 export type Gigs = {
   type: "gigs";
@@ -43,25 +8,59 @@ export type Gigs = {
   items: GigItem[];
 };
 
-export type VideoBrick = {
-  type: "video";
-  url?: string;
-};
+export default defineEventHandler(async (event): Promise<PagePayload> => {
+  const slug = getRouterParam(event, "slug");
+  const config = useRuntimeConfig(event);
 
-export type ImageBrick = {
-  type: "image";
-  image?: string;
-};
+  if (!slug) {
+    throw createError({ statusCode: 400, statusMessage: "Slug mancante" });
+  }
 
-export type Brick = HeroBrick | TextBrick | ImageLeftTextRightBrick | TextLeftImageRightBrick | VideoBrick | ImageBrick | Gigs;
+  const client = createClient({
+    space: config.contentfulSpaceId,
+    accessToken: config.contentfulAccessToken,
+    environment: config.contentfulEnvironment,
+  });
 
-export type PagePayload = {
-  slug: string;
-  title: string;
-  bricks: Brick[];
-  metaTitle?: string;
-  metaDescription?: string;
-};
+  // prende il content type dato lo slug, in teoria cross tra i content types
+  const response = await client.getEntries({
+    content_type: config.contentfulContentType,
+    "fields.slug": slug,
+    include: 2,
+    limit: 1,
+  });
+
+  const entry = response.items[0];
+  const fields = entry?.fields as Record<string, unknown> | undefined;
+  const bricks = parseBricks(Array.isArray(fields?.bricks) ? fields.bricks : []);
+  const hasGigsBrick = bricks.some((brick) => brick.type === "gigs");
+  let hydratedBricks = bricks;
+
+  if (hasGigsBrick) {
+    const gigItems: GigItem[] = await fetchGigItems(client);
+
+    hydratedBricks = bricks.map((brick) => {
+      if (brick.type !== "gigs") {
+        return brick;
+      }
+
+      return {
+        ...brick,
+        items: gigItems,
+      };
+    });
+  }
+
+  return {
+    slug,
+    title:
+      (typeof fields?.title === "string" && fields.title) ||
+      (slug === "sottopagina" ? "Sottopagina" : "Home"),
+    bricks: hydratedBricks,
+    metaTitle: typeof fields?.metaTitle === "string" ? fields.metaTitle : undefined,
+    metaDescription: typeof fields?.metaDescription === "string" ? fields.metaDescription : undefined,
+  };
+});
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseBricks(rawBricks: any[]): Brick[] {
@@ -144,57 +143,3 @@ function parseBricks(rawBricks: any[]): Brick[] {
     })
     .filter((b): b is Brick => b !== null);
 }
-
-export default defineEventHandler(async (event): Promise<PagePayload> => {
-  const slug = getRouterParam(event, "slug");
-  const config = useRuntimeConfig(event);
-
-  if (!slug) {
-    throw createError({ statusCode: 400, statusMessage: "Slug mancante" });
-  }
-
-  const client = createClient({
-    space: config.contentfulSpaceId,
-    accessToken: config.contentfulAccessToken,
-    environment: config.contentfulEnvironment,
-  });
-
-  // prende il content type dato lo slug, in teoria cross tra i content types
-  const response = await client.getEntries({
-    content_type: config.contentfulContentType,
-    "fields.slug": slug,
-    include: 2,
-    limit: 1,
-  });
-
-  const entry = response.items[0];
-  const fields = entry?.fields as Record<string, unknown> | undefined;
-  const bricks = parseBricks(Array.isArray(fields?.bricks) ? fields.bricks : []);
-  const hasGigsBrick = bricks.some((brick) => brick.type === "gigs");
-  let hydratedBricks = bricks;
-
-  if (hasGigsBrick) {
-    const gigItems: GigItem[] = await fetchGigItems(client);
-
-    hydratedBricks = bricks.map((brick) => {
-      if (brick.type !== "gigs") {
-        return brick;
-      }
-
-      return {
-        ...brick,
-        items: gigItems,
-      };
-    });
-  }
-
-  return {
-    slug,
-    title:
-      (typeof fields?.title === "string" && fields.title) ||
-      (slug === "sottopagina" ? "Sottopagina" : "Home"),
-    bricks: hydratedBricks,
-    metaTitle: typeof fields?.metaTitle === "string" ? fields.metaTitle : undefined,
-    metaDescription: typeof fields?.metaDescription === "string" ? fields.metaDescription : undefined,
-  };
-});

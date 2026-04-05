@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { HeroBrick } from "~/server/api/page/[slug].get";
+import type { HeroBrick } from "~/server/models/models";
 
 defineProps<{ brick: HeroBrick }>();
 </script>
