@@ -10,7 +10,7 @@ defineProps<{ brick: TextBrick }>();
         <div class="col-md-12">
             <div class="container">
               <h3>{{ brick.title }}</h3>
-              <p>{{ brick.description }}</p>
+              <p v-html="brick.description"></p>
             </div>
         </div>
     </div>

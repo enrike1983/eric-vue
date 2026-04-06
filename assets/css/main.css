@@ -6,6 +6,9 @@ body {
     font-style: normal;
     font-weight: 400;
 }
+a {
+    color: #251E3E;
+}
 
 .site-logo {
     height: 60px;
