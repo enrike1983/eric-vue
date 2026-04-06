@@ -20,6 +20,7 @@ export type HeroBrick = {
   background?: string;
   ctaLabel?: string;
   ctaUrl?: string;
+  height?: string;
 };
 
 export type TextBrick = {
@@ -78,12 +79,14 @@ export type GigPayload = {
   ctaUrl?: string;
   metaTitle?: string;
   metaDescription?: string;
+  background?: string;
 };
 
 // Per configurazione sito e navigazione ( LayoutThings )
 export type ConfigurationPayload = {
   type: "configuration";
   siteName: string;
+  siteLogo?: string;
 };
 
 export type NavigationPayload = {

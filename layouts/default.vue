@@ -10,7 +10,7 @@ const { data, error } = await useFetch<LayoutThings>(`/api/layout/get`);
       <nav class="navbar navbar-expand-lg bg-white border-bottom">
         <div class="container">
           <NuxtLink class="navbar-brand fw-semibold" to="/">
-            Eric Antonello
+            <img :src="data?.configuration?.siteLogo" class="site-logo" alt="Eric Antonello">
           </NuxtLink>
           <button
             class="navbar-toggler"

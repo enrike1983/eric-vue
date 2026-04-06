@@ -19,7 +19,7 @@ export async function fetchGigItems(
           typeof fields.location === "string"
             ? fields.location
             : undefined,
-        date: typeof fields.date === "string" ? new Date(fields.date).toDateString() : new Date().toDateString(),
+        date: typeof fields.date === "string" ? new Date(fields.date).toLocaleDateString('it-IT') : new Date().toLocaleDateString('it-IT'),
         ctaLabel: typeof fields.ctaLabel === "string" ? fields.ctaLabel : undefined,
         ctaUrl: typeof fields.ctaUrl === "string" ? fields.ctaUrl : undefined,
         slug: fields.slug as string,

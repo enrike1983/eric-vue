@@ -22,11 +22,14 @@ export default defineEventHandler(async (event): Promise<LayoutThings> => {
   if (!configFields) {
     throw createError({ statusCode: 404, statusMessage: "Configuration - Contenuto non trovato" });
   }
-  
-    const configurationPayload: ConfigurationPayload = {
+  const logoAsset = configFields.siteLogo as Asset;
+  const logoUrl = logoAsset?.fields?.file?.url as string;
+
+  const configurationPayload: ConfigurationPayload = {
     type: "configuration",
     siteName: configFields.siteName as string,
-  };  
+    siteLogo: logoUrl ? `https:${logoUrl}` : undefined,
+  };
 
   // prende un solo entry di tipo "navigation", assumendo che ce ne sia solo uno
   const response = await client.getEntries({

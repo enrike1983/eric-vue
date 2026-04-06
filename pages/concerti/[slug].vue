@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import HeroBrick from "~/components/bricks/HeroBrick.vue";
 import type { GigPayload } from "~/server/models/models.ts";
 
 const route = useRoute();
@@ -17,5 +18,11 @@ useSeoMeta({
 </script>
 
 <template>
-  "single template for gig"
+  <HeroBrick 
+    :brick="{
+      type: 'hero',
+      title: data?.venue  || 'Concerto',
+      subtitle: `${new Date(data?.date || '').toLocaleDateString('it-IT')} ${data?.location || ''}`,
+      background: data?.background,
+  }" />
 </template>

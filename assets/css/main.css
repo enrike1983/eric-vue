@@ -7,6 +7,10 @@ body {
     font-weight: 400;
 }
 
+.site-logo {
+    height: 60px;
+}
+
 .text-body-secondary {
     font-size: 14px;
 }
