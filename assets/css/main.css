@@ -100,6 +100,17 @@ h2 {
   font-size: clamp(1.15rem, 2vw, 1.5rem);
 }
 
+@media (max-width: 599px) {
+    .hero-brick {
+        min-height: 65vh;
+        min-height: 65svh;
+    }
+
+    .hero-brick__overlay {
+        padding: 2rem 1.25rem;
+    }
+}
+
 /** DESKTOP **/
 @media (min-width: 600px) {
   body {
