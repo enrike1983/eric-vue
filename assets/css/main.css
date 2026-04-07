@@ -10,6 +10,10 @@ a {
     color: #251E3E;
 }
 
+.btn {
+    margin-bottom: 1rem;
+}
+
 .site-logo {
     height: 60px;
 }

@@ -39,7 +39,7 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
-    urls: ["/", "/sottopagina"]
+    urls: ["/", "/contacts", "/gigs"]
   },
   robots: {
     groups: [{
