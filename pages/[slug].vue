@@ -18,7 +18,7 @@ useSeoMeta({
 
 useHead(() => ({
   script: data.value?.seoSchema
-    ? [{ type: 'application/ld+json', innerHTML: data.value.seoSchema }]
+    ? [{ type: 'application/ld+json', innerHTML: JSON.stringify(data.value.seoSchema) }]
     : []
 }))
 
