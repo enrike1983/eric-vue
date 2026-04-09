@@ -70,7 +70,7 @@ export type PagePayload = {
   bricks: Brick[];
   metaTitle?: string;
   metaDescription?: string;
-  seoSchema?: string;
+  seoSchema?: object;
 };
 
 export type GigPayload = {
@@ -83,7 +83,7 @@ export type GigPayload = {
   metaTitle?: string;
   metaDescription?: string;
   background?: string;
-  seoSchema?: string;
+  seoSchema?: object;
 };
 
 // Per configurazione sito e navigazione ( LayoutThings )

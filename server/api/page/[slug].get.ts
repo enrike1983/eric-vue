@@ -58,7 +58,7 @@ export default defineEventHandler(async (event): Promise<PagePayload> => {
     bricks: hydratedBricks,
     metaTitle: typeof fields?.metaTitle === "string" ? fields.metaTitle : undefined,
     metaDescription: typeof fields?.metaDescription === "string" ? fields.metaDescription : undefined,
-    seoSchema: typeof fields?.seoSchema === "string" ? fields.seoSchema : undefined,
+    seoSchema: typeof fields?.seoSchema === "object" ? fields.seoSchema : undefined,
   };
 });
 
