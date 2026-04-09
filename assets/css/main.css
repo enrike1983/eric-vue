@@ -1,3 +1,7 @@
+script[type="application/json"] {
+    display: none !important;
+}
+
 html,
 body {
     overflow-x: clip;

@@ -15,6 +15,13 @@ useSeoMeta({
   title: data.value?.metaTitle || "Page",
   description: data.value?.metaDescription || "Page",
 });
+
+useHead(() => ({
+  script: data.value?.seoSchema
+    ? [{ type: 'application/ld+json', innerHTML: data.value.seoSchema }]
+    : []
+}))
+
 </script>
 
 <template>

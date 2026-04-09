@@ -1,6 +1,9 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
-  devtools: { enabled: true },
+  devtools: { 
+    enabled: false,
+    logs: { silent: true }
+  },
   css: ["bootstrap/dist/css/bootstrap.min.css", "~/assets/css/main.css"],
   modules: ["@nuxtjs/sitemap", "@nuxtjs/robots"],
   runtimeConfig: {
@@ -39,7 +42,7 @@ export default defineNuxtConfig({
     }
   },
   sitemap: {
-    urls: ["/", "/contacts", "/gigs"]
+    urls: ["/", "/contacts", "/gigs", "/order-of-minerva"]
   },
   robots: {
     groups: [{
