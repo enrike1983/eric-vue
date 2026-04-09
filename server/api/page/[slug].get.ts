@@ -58,6 +58,7 @@ export default defineEventHandler(async (event): Promise<PagePayload> => {
     bricks: hydratedBricks,
     metaTitle: typeof fields?.metaTitle === "string" ? fields.metaTitle : undefined,
     metaDescription: typeof fields?.metaDescription === "string" ? fields.metaDescription : undefined,
+    seoSchema: typeof fields?.seoSchema === "string" ? fields.seoSchema : undefined,
   };
 });
 
@@ -98,6 +99,7 @@ function parseBricks(rawBricks: any[]): Brick[] {
           title: typeof f.title === "string" ? f.title : "",
           description: typeof f.description === "string" ? f.description : "",
           image: f.image?.fields?.file?.url ? `https:${f.image.fields.file.url}` : undefined,
+          imageTitle: typeof f.image?.fields?.title === "string" ? f.image.fields.title : undefined,
           ctaLabel: typeof f.ctaLabel === "string" ? f.ctaLabel : undefined,
           ctaUrl: typeof f.ctaUrl === "string" ? f.ctaUrl : undefined,
           variant: typeof f.variant === "string" ? f.variant : "default",
@@ -135,6 +137,7 @@ function parseBricks(rawBricks: any[]): Brick[] {
         return {
           type: "image",
           image: f.image?.fields?.file?.url ? `https:${f.image.fields.file.url}` : undefined,
+          imageTitle: typeof f.image?.fields?.title === "string" ? f.image.fields.title : undefined,
         };
       }
 

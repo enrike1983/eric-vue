@@ -40,5 +40,6 @@ export default defineEventHandler(async (event): Promise<GigPayload> => {
     metaTitle: typeof fields?.metaTitle === "string" ? fields.metaTitle : undefined,
     metaDescription: typeof fields?.metaDescription === "string" ? fields.metaDescription : undefined,
     background: fields?.background?.fields?.file?.url ? `https:${fields.background.fields.file.url}` : undefined,
+    seoSchema: typeof fields?.seoSchema === "string" ? fields.seoSchema : undefined,
   };
 });

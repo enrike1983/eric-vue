@@ -8,6 +8,13 @@ useSeoMeta({
   title: data.value?.metaTitle || "Home",
   description: data.value?.metaDescription || "Home",
 });
+
+useHead({
+  script: data.value?.seoSchema
+    ? [{ type: 'application/ld+json', innerHTML: JSON.stringify(data.value.seoSchema) }]
+    : []
+})
+
 </script>
 
 <template>

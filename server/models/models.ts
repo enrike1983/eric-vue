@@ -35,6 +35,7 @@ export type ImageLeftTextRightBrick = {
   title: string;
   description?: string;
   image?: string;
+  imageTitle?: string;
   ctaLabel?: string;
   ctaUrl?: string;
   variant?: string;
@@ -58,6 +59,7 @@ export type VideoBrick = {
 export type ImageBrick = {
   type: "image";
   image?: string;
+  imageTitle?: string;
 };
 
 export type Brick = HeroBrick | TextBrick | ImageLeftTextRightBrick | TextLeftImageRightBrick | VideoBrick | ImageBrick | GigsBrick;
@@ -68,6 +70,7 @@ export type PagePayload = {
   bricks: Brick[];
   metaTitle?: string;
   metaDescription?: string;
+  seoSchema?: string;
 };
 
 export type GigPayload = {
@@ -80,6 +83,7 @@ export type GigPayload = {
   metaTitle?: string;
   metaDescription?: string;
   background?: string;
+  seoSchema?: string;
 };
 
 // Per configurazione sito e navigazione ( LayoutThings )
