@@ -5,8 +5,8 @@ export default defineNuxtConfig({
     logs: { silent: true }
   },
   css: ["bootstrap/dist/css/bootstrap.min.css", "~/assets/css/main.css"],
-  modules: ["@nuxtjs/sitemap", "@nuxtjs/robots", "@nuxtjs/google-analytics"],
-  googleAnalytics: {
+  modules: ["@nuxtjs/sitemap", "@nuxtjs/robots", "nuxt-gtag"],
+  gtag: {
     id: process.env.NUXT_PUBLIC_GOOGLE_ANALYTICS_ID
   },
   runtimeConfig: {
