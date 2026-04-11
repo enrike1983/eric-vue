@@ -10,7 +10,13 @@ export type GigItem = {
 export type GigsBrick = {
   type: "gigs";
   title: string;
-  items: GigItem[];
+  upcomingItems: GigItem[];
+  pastItems: GigItem[];
+};
+
+export type GigGroups = {
+  upcomingItems: GigItem[];
+  pastItems: GigItem[];
 };
 
 export type HeroBrick = {

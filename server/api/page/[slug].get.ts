@@ -1,5 +1,5 @@
 import { createClient } from "contentful";
-import type { PagePayload, GigItem, Brick } from "~/server/models/models.ts";
+import type { PagePayload, GigGroups, Brick } from "~/server/models/models.ts";
 import { fetchGigItems } from "~/server/services/contentful/gigs";
 
 export default defineEventHandler(async (event): Promise<PagePayload> => {
@@ -36,7 +36,7 @@ export default defineEventHandler(async (event): Promise<PagePayload> => {
   let hydratedBricks = bricks;
 
   if (hasGigsBrick) {
-    const gigItems: GigItem[] = await fetchGigItems(client);
+    const gigGroups: GigGroups = await fetchGigItems(client);
 
     hydratedBricks = bricks.map((brick) => {
       if (brick.type !== "gigs") {
@@ -45,7 +45,8 @@ export default defineEventHandler(async (event): Promise<PagePayload> => {
 
       return {
         ...brick,
-        items: gigItems,
+        upcomingItems: gigGroups.upcomingItems,
+        pastItems: gigGroups.pastItems,
       };
     });
   }
@@ -58,7 +59,10 @@ export default defineEventHandler(async (event): Promise<PagePayload> => {
     bricks: hydratedBricks,
     metaTitle: typeof fields?.metaTitle === "string" ? fields.metaTitle : undefined,
     metaDescription: typeof fields?.metaDescription === "string" ? fields.metaDescription : undefined,
-    seoSchema: typeof fields?.seoSchema === "object" ? fields.seoSchema : undefined,
+    seoSchema:
+      typeof fields?.seoSchema === "object" && fields.seoSchema !== null
+        ? fields.seoSchema
+        : undefined,
   };
 });
 
@@ -129,7 +133,8 @@ function parseBricks(rawBricks: any[]): Brick[] {
         return {
           type: "gigs",
           title: typeof f.title === "string" ? f.title : "",
-          items: [],
+          upcomingItems: [],
+          pastItems: [],
         };
       }
 
