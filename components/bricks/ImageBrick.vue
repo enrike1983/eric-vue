@@ -6,8 +6,14 @@ defineProps<{ brick: ImageBrick }>();
 
 <template>
   <div class="container-fluid p-5 bg-light">
-      <div class="ratio ratio-16x9">
-          <img :src="brick.image" class="embed-responsive-item" :alt="brick.imageTitle" />
-      </div>
+    <img :src="brick.image" class="image-brick__image" :alt="brick.imageTitle" />
   </div>
 </template>
+
+<style scoped>
+.image-brick__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+</style>
