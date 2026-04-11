@@ -2,6 +2,19 @@
 import type { LayoutThings } from "~/server/models/models.ts";
 
 const { data, error } = await useFetch<LayoutThings>(`/api/layout/get`);
+
+const faviconHref = computed(
+  () => data.value?.configuration?.favicon || data.value?.configuration?.siteLogo || "/favicon.ico",
+);
+
+useHead(() => ({
+  link: [
+    {
+      rel: "icon",
+      href: faviconHref.value,
+    },
+  ],
+}));
 </script>
 
 <template>
@@ -10,7 +23,7 @@ const { data, error } = await useFetch<LayoutThings>(`/api/layout/get`);
       <nav class="navbar navbar-expand-lg bg-white border-bottom">
         <div class="container">
           <NuxtLink class="navbar-brand fw-semibold" to="/">
-            <img :src="data?.configuration?.siteLogo" class="site-logo" alt="Eric Antonello">
+            <img :src="data?.configuration?.siteLogo" class="site-logo" :alt="data?.configuration?.siteName">
           </NuxtLink>
           <button
             class="navbar-toggler"

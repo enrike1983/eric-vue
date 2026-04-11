@@ -97,6 +97,7 @@ export type ConfigurationPayload = {
   type: "configuration";
   siteName: string;
   siteLogo?: string;
+  favicon?: string;
 };
 
 export type NavigationPayload = {

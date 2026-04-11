@@ -1,4 +1,5 @@
 import { createClient } from "contentful";
+import type { Asset } from "contentful";
 import type { ConfigurationPayload, LayoutThings, NavigationPayload } from "~/server/models/models.ts";
 
 export default defineEventHandler(async (event): Promise<LayoutThings> => {
@@ -24,11 +25,14 @@ export default defineEventHandler(async (event): Promise<LayoutThings> => {
   }
   const logoAsset = configFields.siteLogo as Asset;
   const logoUrl = logoAsset?.fields?.file?.url as string;
+  const faviconAsset = configFields.favicon as Asset;
+  const faviconUrl = faviconAsset?.fields?.file?.url as string;
 
   const configurationPayload: ConfigurationPayload = {
     type: "configuration",
     siteName: configFields.siteName as string,
     siteLogo: logoUrl ? `https:${logoUrl}` : undefined,
+    favicon: faviconUrl ? `https:${faviconUrl}` : undefined,
   };
 
   // prende un solo entry di tipo "navigation", assumendo che ce ne sia solo uno
