@@ -6,6 +6,8 @@ const { data, error } = await useFetch<LayoutThings>(`/api/layout/get`);
 const faviconHref = computed(
   () => data.value?.configuration?.favicon || data.value?.configuration?.siteLogo || "/favicon.ico",
 );
+const siteTheme = computed(() => data.value?.configuration?.siteTheme || "light");
+const themeClass = computed(() => `theme-${siteTheme.value}`);
 
 useHead(() => ({
   link: [
@@ -14,11 +16,14 @@ useHead(() => ({
       href: faviconHref.value,
     },
   ],
+  bodyAttrs: {
+    class: themeClass.value,
+  },
 }));
 </script>
 
 <template>
-  <div class="site-shell d-flex flex-column min-vh-100">
+  <div :class="['site-shell', 'd-flex', 'flex-column', 'min-vh-100', themeClass]">
     <header>
       <nav class="navbar navbar-expand-lg bg-white border-bottom">
         <div class="container">

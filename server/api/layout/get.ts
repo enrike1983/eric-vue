@@ -27,12 +27,15 @@ export default defineEventHandler(async (event): Promise<LayoutThings> => {
   const logoUrl = logoAsset?.fields?.file?.url as string;
   const faviconAsset = configFields.favicon as Asset;
   const faviconUrl = faviconAsset?.fields?.file?.url as string;
+  const rawSiteTheme = typeof configFields.siteTheme === "string" ? configFields.siteTheme : undefined;
+  const siteTheme = rawSiteTheme === "dark" ? "dark" : "light";
 
   const configurationPayload: ConfigurationPayload = {
     type: "configuration",
     siteName: configFields.siteName as string,
     siteLogo: logoUrl ? `https:${logoUrl}` : undefined,
     favicon: faviconUrl ? `https:${faviconUrl}` : undefined,
+    siteTheme,
   };
 
   // prende un solo entry di tipo "navigation", assumendo che ce ne sia solo uno

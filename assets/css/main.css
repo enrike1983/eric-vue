@@ -2,6 +2,30 @@ script[type="application/json"] {
     display: none !important;
 }
 
+:root {
+    --theme-bg: #f7f7f8;
+    --theme-surface: #ffffff;
+    --theme-surface-soft: #f2f2f2;
+    --theme-text: #161616;
+    --theme-text-muted: #606872;
+    --theme-link: #251E3E;
+    --theme-border: rgba(0, 0, 0, 0.14);
+    --theme-hr: rgba(0, 0, 0, 0.12);
+    --theme-btn-outline: #161616;
+}
+
+.theme-dark {
+    --theme-bg: #090909;
+    --theme-surface: #111111;
+    --theme-surface-soft: #1a1a1a;
+    --theme-text: #f5f5f5;
+    --theme-text-muted: #b6b6b6;
+    --theme-link: #d7d7d7;
+    --theme-border: rgba(255, 255, 255, 0.16);
+    --theme-hr: rgba(255, 255, 255, 0.2);
+    --theme-btn-outline: #f0f0f0;
+}
+
 html,
 body {
     overflow-x: clip;
@@ -9,9 +33,12 @@ body {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
+    background: var(--theme-bg);
+    color: var(--theme-text);
 }
+
 a {
-    color: #251E3E;
+    color: var(--theme-link);
 }
 
 .navbar-toggler {
@@ -28,6 +55,62 @@ a {
 
 .text-body-secondary {
     font-size: 14px;
+}
+
+.site-shell,
+.main {
+    background: var(--theme-bg);
+    color: var(--theme-text);
+}
+
+.border-bottom {
+    border-color: var(--theme-border) !important;
+}
+
+.hr,
+hr {
+    border-color: var(--theme-hr);
+    opacity: 1;
+}
+
+.bg-white,
+.navbar,
+footer {
+    background: var(--theme-surface) !important;
+    color: var(--theme-text);
+}
+
+.bg-light,
+.theme-dark .palette-grey-light {
+    background: var(--theme-surface-soft) !important;
+    color: var(--theme-text) !important;
+}
+
+.text-muted,
+.text-body-secondary,
+.nav-link {
+    color: var(--theme-text-muted) !important;
+}
+
+.btn-outline-dark {
+    border-color: var(--theme-btn-outline);
+    color: var(--theme-btn-outline);
+}
+
+.btn-outline-dark:hover,
+.btn-outline-dark:focus,
+.btn-outline-dark:active {
+    background: var(--theme-btn-outline);
+    border-color: var(--theme-btn-outline);
+    color: var(--theme-surface);
+}
+
+.theme-dark .navbar-toggler {
+    filter: invert(1) grayscale(100%);
+}
+
+.theme-dark iframe {
+    border: 1px solid var(--theme-border);
 }
 
 .small-text {

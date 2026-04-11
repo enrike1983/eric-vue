@@ -7,7 +7,6 @@ defineProps<{ brick: GigsBrick }>();
 <template>
   <div class="container-fluid p-4 p-md-5">
     <div v-if="brick.upcomingItems.length">
-      <h3 class="mb-3">Upcoming gigs</h3>
       <div v-for="(gig, index) in brick.upcomingItems" :key="`upcoming-${index}`" class="container-fluid">
         <div class="row pt-4 pb-4 align-items-center gy-3">
 

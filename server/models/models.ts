@@ -14,6 +14,12 @@ export type GigsBrick = {
   pastItems: GigItem[];
 };
 
+export type NextGigsBrick = {
+  type: "nextGigs";
+  title: string;
+  items: GigItem[];
+};
+
 export type GigGroups = {
   upcomingItems: GigItem[];
   pastItems: GigItem[];
@@ -68,7 +74,19 @@ export type ImageBrick = {
   imageTitle?: string;
 };
 
-export type Brick = HeroBrick | TextBrick | ImageLeftTextRightBrick | TextLeftImageRightBrick | VideoBrick | ImageBrick | GigsBrick;
+export type GalleryImage = {
+  image: string;
+  imageTitle?: string;
+  imageDescription?: string;
+};
+
+export type GalleryBrick = {
+  type: "gallery";
+  title?: string;
+  images: GalleryImage[];
+};
+
+export type Brick = HeroBrick | TextBrick | ImageLeftTextRightBrick | TextLeftImageRightBrick | VideoBrick | ImageBrick | GigsBrick | NextGigsBrick | GalleryBrick;
 
 export type PagePayload = {
   slug: string;
@@ -98,6 +116,7 @@ export type ConfigurationPayload = {
   siteName: string;
   siteLogo?: string;
   favicon?: string;
+  siteTheme?: "light" | "dark";
 };
 
 export type NavigationPayload = {

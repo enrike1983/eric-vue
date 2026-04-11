@@ -32,22 +32,29 @@ export default defineEventHandler(async (event): Promise<PagePayload> => {
 
   const fields = entry?.fields as Record<string, unknown> | undefined;
   const bricks = parseBricks(Array.isArray(fields?.bricks) ? fields.bricks : []);
-  const hasGigsBrick = bricks.some((brick) => brick.type === "gigs");
+  const hasGigDrivenBrick = bricks.some((brick) => brick.type === "gigs" || brick.type === "nextGigs");
   let hydratedBricks = bricks;
 
-  if (hasGigsBrick) {
+  if (hasGigDrivenBrick) {
     const gigGroups: GigGroups = await fetchGigItems(client);
 
     hydratedBricks = bricks.map((brick) => {
-      if (brick.type !== "gigs") {
-        return brick;
+      if (brick.type === "gigs") {
+        return {
+          ...brick,
+          upcomingItems: gigGroups.upcomingItems,
+          pastItems: gigGroups.pastItems,
+        };
       }
 
-      return {
-        ...brick,
-        upcomingItems: gigGroups.upcomingItems,
-        pastItems: gigGroups.pastItems,
-      };
+      if (brick.type === "nextGigs") {
+        return {
+          ...brick,
+          items: gigGroups.upcomingItems,
+        };
+      }
+
+      return brick;
     });
   }
 
@@ -138,11 +145,48 @@ function parseBricks(rawBricks: any[]): Brick[] {
         };
       }
 
+      if (contentType === "nextGigs") {
+        return {
+          type: "nextGigs",
+          title: typeof f.title === "string" ? f.title : "",
+          items: [],
+        };
+      }
+
       if (contentType === "image") {
         return {
           type: "image",
           image: f.image?.fields?.file?.url ? `https:${f.image.fields.file.url}` : undefined,
           imageTitle: typeof f.image?.fields?.title === "string" ? f.image.fields.title : undefined,
+        };
+      }
+
+      if (contentType === "gallery") {
+        const images = Array.isArray(f.images)
+          ? f.images
+              .map((asset) => {
+                const url = asset?.fields?.file?.url;
+                if (typeof url !== "string") {
+                  return null;
+                }
+
+                return {
+                  image: `https:${url}`,
+                  imageTitle:
+                    typeof asset?.fields?.title === "string" ? asset.fields.title : undefined,
+                  imageDescription:
+                    typeof asset?.fields?.description === "string"
+                      ? asset.fields.description
+                      : undefined,
+                };
+              })
+              .filter((image): image is NonNullable<typeof image> => image !== null)
+          : [];
+
+        return {
+          type: "gallery",
+          title: typeof f.title === "string" ? f.title : undefined,
+          images,
         };
       }
 

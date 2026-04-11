@@ -6,7 +6,9 @@ import ImageLeftTextRightBrick from "./bricks/ImageLeftTextRightBrick.vue";
 import TextLeftImageRightBrick from "./bricks/TextLeftImageRightBrick.vue";
 import VideoBrick from "./bricks/VideoBrick.vue";
 import GigsBrick from "./bricks/GigsBrick.vue";
+import NextGigsBrick from "./bricks/NextGigsBrick.vue";
 import ImageBrick from "./bricks/ImageBrick.vue";
+import GalleryBrick from "./bricks/GalleryBrick.vue";
 
 defineProps<{ bricks: Brick[] }>();
 </script>
@@ -19,6 +21,8 @@ defineProps<{ bricks: Brick[] }>();
     <TextLeftImageRightBrick v-if="brick.type === 'textLeftImageRight'" :brick="brick" />
     <VideoBrick v-if="brick.type === 'video'" :brick="brick" />
     <GigsBrick v-if="brick.type === 'gigs'" :brick="brick" />
+    <NextGigsBrick v-if="brick.type === 'nextGigs'" :brick="brick" />
     <ImageBrick v-if="brick.type === 'image'" :brick="brick" />
+    <GalleryBrick v-if="brick.type === 'gallery'" :brick="brick" />
   </template>
 </template>
