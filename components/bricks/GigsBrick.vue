@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { GigsBrick } from "~/server/models/models.ts";
+import { formatGigDate } from "~/utils/formatGigDate";
 
 defineProps<{ brick: GigsBrick }>();
 </script>
@@ -11,7 +12,7 @@ defineProps<{ brick: GigsBrick }>();
         <div class="row pt-4 pb-4 align-items-center gy-3">
 
           <div class="col-12 col-md-2">
-            <h5 class="mb-0 text-muted">{{ gig.date }}</h5>
+            <h5 class="mb-0 text-muted">{{ `${formatGigDate(gig.date)} ${gig.location || ''}` }}</h5>
           </div>
 
           <div class="col-12 col-md-8">
@@ -35,7 +36,7 @@ defineProps<{ brick: GigsBrick }>();
       <div v-for="(gig, index) in brick.pastItems" :key="`past-${index}`" class="container-fluid">
         <div class="row pt-4 pb-4 align-items-center gy-3">
           <div class="col-12 col-md-2">
-            <h5 class="mb-0 text-muted">{{ gig.date }}</h5>
+            <h5 class="mb-0 text-muted">{{ formatGigDate(gig.date) }}</h5>
           </div>
 
           <div class="col-12 col-md-8">

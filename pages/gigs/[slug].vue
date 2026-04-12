@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import HeroBrick from "~/components/bricks/HeroBrick.vue";
 import type { GigPayload } from "~/server/models/models.ts";
+import { formatGigDate } from "~/utils/formatGigDate";
 
 const route = useRoute();
 const slug = route.params.slug || "home";
@@ -22,7 +23,7 @@ useSeoMeta({
     :brick="{
       type: 'hero',
       title: data?.venue  || 'Concerto',
-      subtitle: `${new Date(data?.date || '').toLocaleDateString('it-IT')} ${data?.location || ''}`,
+      subtitle: `${formatGigDate(data?.date)} ${data?.location || ''}`,
       background: data?.background,
   }" />
 </template>

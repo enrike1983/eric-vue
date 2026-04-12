@@ -1,5 +1,8 @@
 import { createClient } from "contentful";
 import type { GigGroups, GigItem } from "~/server/models/models.ts";
+import { formatGigDate } from "~/utils/formatGigDate";
+
+type GigWithRawDate = GigItem & { location: string; rawDate: string };
 
 export async function fetchGigItems(
   client: ReturnType<typeof createClient>,
@@ -12,27 +15,27 @@ export async function fetchGigItems(
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const gigs = gigsResponse.items
-    .map((item) => {
+  const gigs = gigsResponse.items.reduce<GigWithRawDate[]>((acc, item) => {
       const fields = item.fields as Record<string, unknown>;
       const rawDate = typeof fields.date === "string" ? fields.date : undefined;
+      const location = typeof fields.location === "string" ? fields.location : undefined;
 
-      return {
+      if (!location || !rawDate) {
+        return acc;
+      }
+
+      acc.push({
         venue: typeof fields.venue === "string" ? fields.venue : "",
-        location:
-          typeof fields.location === "string"
-            ? fields.location
-            : undefined,
-        date: rawDate
-          ? new Date(rawDate).toLocaleDateString("it-IT")
-          : new Date().toLocaleDateString("it-IT"),
+        location,
+        date: formatGigDate(rawDate),
         ctaLabel: typeof fields.ctaLabel === "string" ? fields.ctaLabel : undefined,
         ctaUrl: typeof fields.ctaUrl === "string" ? fields.ctaUrl : undefined,
         slug: fields.slug as string,
         rawDate,
-      };
-    })
-    .filter((gig): gig is GigItem & { rawDate: string } => Boolean(gig.location && gig.rawDate));
+      });
+
+      return acc;
+    }, []);
 
   const sortedGigs = gigs.sort((a, b) => new Date(a.rawDate).getTime() - new Date(b.rawDate).getTime());
 

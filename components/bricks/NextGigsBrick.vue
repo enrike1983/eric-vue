@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NextGigsBrick } from "~/server/models/models.ts";
+import { formatGigDate } from "~/utils/formatGigDate";
 
 defineProps<{ brick: NextGigsBrick }>();
 </script>
@@ -12,7 +13,7 @@ defineProps<{ brick: NextGigsBrick }>();
       <div v-for="(gig, index) in brick.items" :key="`next-${index}`" class="container">
         <div class="row pt-4 pb-4 align-items-center gy-3">
           <div class="col-12 col-md-2">
-            <h5 class="mb-0 text-muted">{{ gig.date }}</h5>
+            <h5 class="mb-0 text-muted">{{ formatGigDate(gig.date) }}</h5>
           </div>
 
           <div class="col-12 col-md-8">
